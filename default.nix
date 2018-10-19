@@ -17,15 +17,19 @@ let
 
   vault-ui = src: bp.buildYarnPackage {
     inherit src integreties;
+
+    # replaces `make ember-dist`
     yarnBuildMore = ''
-      # npm rebuild node-sass
+      # replaces `npm rebuild node-sass`
       mkdir -p `dirname ${node-sass-path}`
       ln -s ${node-sass} ${node-sass-path}
 
+      # thanks ember
       mkdir _HOME
       HOME=$PWD/_HOME yarn run build
       rm -fr _HOME
 
+      # let's not keep that in the parent dir
       mv ../pkg/web_ui _web_ui
     '';
   };
@@ -72,7 +76,9 @@ let
       export GOPATH=$(pwd)
     '' + (if buildUI then ''
       rm -fr ui
-      ln -s ${vault-ui (src + "/ui")} ui;
+      ln -s ${vault-ui (src + "/ui")} ui
+
+      # link the web_ui we moved in yarnBuildMore
       mkdir -p pkg
       ln -s ../ui/_web_ui pkg/web_ui
     '' else "");
