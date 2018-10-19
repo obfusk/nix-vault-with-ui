@@ -81,6 +81,9 @@ let
       # link the web_ui we moved in yarnBuildMore
       mkdir -p pkg
       ln -s ../ui/_web_ui pkg/web_ui
+
+      # eh...
+      substituteInPlace Makefile --replace '-o bindata_assetfs.go' ""
     '' else "");
 
     makeFlags = if buildUI then "static-assets dev-ui" else "";
