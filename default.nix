@@ -29,7 +29,7 @@ let
 
   vault = pkgs.callPackage vault' {};
 
-  vault' = args@{ go-bindata, go-bindata-assetfs, buildUI ? true }:
+  vault' = { go-bindata, go-bindata-assetfs, buildUI ? true }:
     let
       old = pkgs.vault;
     in old // rec {
