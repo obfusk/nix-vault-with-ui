@@ -35,8 +35,8 @@ let
     in old.override rec {
       buildUI = true;
 
-      nativeBuildInputs = pkgs.vault.nativeBuildInputs ++
-        stdenv.lib.optionals buildUI [ go-bindata go-bindata-assetfs ];
+      nativeBuildInputs = old.nativeBuildInputs ++
+        pkgs.lib.optionals buildUI [ go-bindata go-bindata-assetfs ];
 
       preBuild = old.preBuild + (if buildUI then ''
         rm -fr ui
