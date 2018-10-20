@@ -40,7 +40,7 @@ let
 
       preBuild = old.preBuild + (if buildUI then ''
         rm -fr ui
-        ln -s ${vault-ui (src + "/ui")} ui
+        ln -s ${vault-ui (old.src + "/ui")} ui
 
         # link the web_ui we moved in yarnBuildMore
         mkdir -p pkg
