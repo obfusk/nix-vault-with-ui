@@ -29,12 +29,10 @@ let
 
   vault = pkgs.callPackage vault' {};
 
-  vault' = { go-bindata, go-bindata-assetfs }:
+  vault' = args@{ go-bindata, go-bindata-assetfs, buildUI ? true }:
     let
       old = pkgs.vault;
     in old.override rec {
-      buildUI = true;
-
       nativeBuildInputs = old.nativeBuildInputs ++
         pkgs.lib.optionals buildUI [ go-bindata go-bindata-assetfs ];
 
@@ -51,5 +49,5 @@ let
       '' else "");
 
       makeFlags = if buildUI then "static-assets dev-ui" else "";
-    };
+    } // args;
 in { inherit vault; }
