@@ -1,8 +1,11 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  # TODO: fetchGit
-  bp = pkgs.callPackage ~/dev/nix-npm-buildpackage {};
+  bp = pkgs.callPackage (fetchGit {
+    url = "https://github.com/serokell/nix-npm-buildpackage.git";
+    rev = "1f607e575b6b313dc6ac7bc83313ef718d1e2184";
+  # ref = "v0.1.0"; # TODO (not yet released)
+  }) {};
 
   integreties = {
    "https://codeload.github.com/icholy/Duration.js/tar.gz/cb1c58efc2772ef0f261da9e2535890734a86417"         = "sha512-WZEMW8xDHHnxu2RK9y8YzSXgzOLveGPwRWEHSGYcEsLts52MN3M7lZaPLyZoHW8FOpVbM+2H5wnhOR+6RJZJIw==";
