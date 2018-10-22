@@ -4,7 +4,7 @@ let
   bp = pkgs.callPackage (fetchGit {
     url = "https://github.com/serokell/nix-npm-buildpackage.git";
     rev = "1f607e575b6b313dc6ac7bc83313ef718d1e2184";
-  # ref = "v0.1.0"; # TODO (not yet released)
+    ref = "obfusk-wip-2"; # TODO: "v0.1.0"
   }) {};
 
   integreties = {
