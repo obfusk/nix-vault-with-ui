@@ -4,7 +4,7 @@ let
   bp = pkgs.callPackage (fetchGit {
     url = "https://github.com/serokell/nix-npm-buildpackage.git";
     rev = "1f607e575b6b313dc6ac7bc83313ef718d1e2184";
-    ref = "obfusk-wip-2"; # TODO: "v0.1.0"
+    ref = "1f607e5-tag-you-are-it"; # TODO: "v0.1.0"
   }) {};
 
   integreties = {
@@ -30,7 +30,7 @@ let
     buildInputs = with pkgs; [ phantomjs2 python2 ];
   };
 
-  vault = pkgs.callPackage vault' {};
+  vault-with-ui = pkgs.callPackage vault' {};
 
   vault' = { go-bindata, go-bindata-assetfs, buildUI ? true }:
     pkgs.vault.overrideAttrs (old: rec {
@@ -53,4 +53,4 @@ let
 
       makeFlags = if buildUI then "static-assets dev-ui" else "";
     });
-in { inherit vault; }
+in { inherit vault-with-ui; }
