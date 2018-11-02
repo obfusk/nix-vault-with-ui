@@ -1,19 +1,18 @@
-{ pkgs ? import <nixpkgs> {} }:
-
 let
   bp = pkgs.callPackage (fetchGit {
     url = "https://github.com/serokell/nix-npm-buildpackage.git";
     rev = "1f607e575b6b313dc6ac7bc83313ef718d1e2184";
     ref = "1f607e5-tag-you-are-it"; # TODO: "v0.1.0"
   }) {};
-
+in { pkgs ? import <nixpkgs> {}, npm-buildpackage ? bp }:
+let
   integreties = {
    "https://codeload.github.com/icholy/Duration.js/tar.gz/cb1c58efc2772ef0f261da9e2535890734a86417"         = "sha512-WZEMW8xDHHnxu2RK9y8YzSXgzOLveGPwRWEHSGYcEsLts52MN3M7lZaPLyZoHW8FOpVbM+2H5wnhOR+6RJZJIw==";
    "https://codeload.github.com/meirish/broccoli-sri-hash/tar.gz/5ebad6f345c38d45461676c7a298a0b61be4a39d"  = "sha512-G3Rs6Xbn8UXNJznKcEUn9kA6CTvyU2xdmZkEUJniSO9mLmBuMmBEhLJXIblYiOPjcO8l5YuiKDq/r49R6IvStA==";
    "https://codeload.github.com/meirish/ember-cli-sri/tar.gz/1c0ff776a61f09121d1ea69ce16e4653da5e1efa"      = "sha512-Rm87BsYdlZBYt/SdYq/ADmBpR7PsxIi1seuxaCsFuLIkr8c5ME7fdi9aRfwUFvbFMQStRu12BDfl9hs92EPY1A==";
   };
 
-  vault-ui = src: bp.buildYarnPackage {
+  vault-ui = src: npm-buildpackage.buildYarnPackage {
     inherit src integreties;
 
     # replaces `make ember-dist`
